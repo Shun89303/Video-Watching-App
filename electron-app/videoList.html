@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Video List</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				padding: 20px;
+			}
+
+			.search-bar {
+				display: flex;
+				gap: 10px;
+				margin-bottom: 20px;
+			}
+
+			input[type="text"] {
+				flex: 1;
+				padding: 8px;
+				font-size: 16px;
+			}
+
+			button {
+				padding: 8px 16px;
+				font-size: 16px;
+				cursor: pointer;
+			}
+
+			.video-container {
+				margin-top: 20px;
+				border: 1px solid #ccc;
+				padding: 15px;
+				border-radius: 8px;
+			}
+
+			.video-container h2 {
+				margin-top: 0;
+				text-transform: capitalize;
+			}
+
+			video {
+				width: 100%;
+				max-width: 600px;
+				display: block;
+				margin-bottom: 10px;
+			}
+
+			.mark-watched {
+				display: inline-block;
+				padding: 6px 12px;
+				background-color: #4caf50;
+				color: white;
+				text-decoration: none;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			.mark-watched:hover {
+				background-color: #45a049;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="search-bar">
+			<input type="text" id="searchInput" placeholder="Search for a video..." />
+			<button id="findButton">Find</button>
+		</div>
+
+		<div id="videoDisplay"></div>
+
+		<script>
+			// Retrieve logged-in user's phone
+			const loggedInUserPhone = localStorage.getItem("loggedInUserPhone");
+			if (!loggedInUserPhone) {
+				alert("Please login first!");
+				window.location.href = "login.html";
+			}
+
+			const searchInput = document.getElementById("searchInput");
+			const findButton = document.getElementById("findButton");
+			const videoDisplay = document.getElementById("videoDisplay");
+
+			findButton.addEventListener("click", async () => {
+				const searchText = searchInput.value.trim();
+				if (!searchText) return;
+
+				// Clear previous results
+				videoDisplay.innerHTML = "";
+
+				try {
+					// Fetch video info from backend
+					const res = await fetch("http://localhost:3000/search-video", {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ search: searchText }),
+					});
+
+					const data = await res.json();
+					if (!data.success) {
+						videoDisplay.textContent = data.message || "Video not found";
+						return;
+					}
+
+					// Capitalize title
+					const capitalizedTitle = searchText.replace(/\b\w/g, (c) =>
+						c.toUpperCase(),
+					);
+
+					// Create container
+					const container = document.createElement("div");
+					container.className = "video-container";
+
+					// Title
+					const title = document.createElement("h2");
+					title.textContent = capitalizedTitle;
+					container.appendChild(title);
+
+					// Video player
+					const video = document.createElement("video");
+					video.controls = true;
+					video.src = data.url; // actual video path from backend
+					container.appendChild(video);
+
+					// Mark as Watched button
+					const markWatched = document.createElement("button");
+					markWatched.className = "mark-watched";
+					markWatched.textContent = "Mark as Watched";
+					markWatched.onclick = async () => {
+						const res = await fetch("http://localhost:3000/mark-watched", {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({
+								phone: loggedInUserPhone,
+								metadata_key: searchText,
+							}),
+						});
+						const result = await res.json();
+						if (result.success) alert(`${capitalizedTitle} marked as watched!`);
+						else alert("Error marking as watched");
+					};
+					container.appendChild(markWatched);
+
+					videoDisplay.appendChild(container);
+				} catch (err) {
+					console.error(err);
+					videoDisplay.textContent = "Error fetching video";
+				}
+			});
+		</script>
+	</body>
+</html>

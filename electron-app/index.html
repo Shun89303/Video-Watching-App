@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Login</title>
+
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				background: #f5f5f5;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+			}
+
+			.login-container {
+				background: white;
+				padding: 30px;
+				border-radius: 8px;
+				width: 300px;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			}
+
+			h2 {
+				text-align: center;
+				margin-bottom: 20px;
+			}
+
+			input {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 12px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+			}
+
+			button {
+				width: 100%;
+				padding: 10px;
+				border: none;
+				background: #0078d7;
+				color: white;
+				font-size: 16px;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background: #005fa3;
+			}
+
+			.error {
+				color: red;
+				font-size: 14px;
+				text-align: center;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="login-container">
+			<h2>Login</h2>
+
+			<form id="loginForm">
+				<input type="tel" id="phone" placeholder="Phone Number" required />
+
+				<input type="password" id="password" placeholder="Password" required />
+
+				<button type="submit">Login</button>
+			</form>
+
+			<div id="error" class="error"></div>
+		</div>
+
+		<script type="module" src="/src/renderer.ts"></script>
+
+		<script>
+			const form = document.getElementById("loginForm");
+
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				const phone = document.getElementById("phone").value;
+				const password = document.getElementById("password").value;
+
+				const res = await fetch("http://localhost:3000/login", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ phone, password }),
+				});
+
+				const data = await res.json();
+				if (data.success) {
+					// Store phone for later use in mark-watched
+					localStorage.setItem("loggedInUserPhone", phone);
+
+					window.location.href = "videoList.html";
+				} else {
+					document.getElementById("error").textContent = "Invalid login";
+				}
+			});
+		</script>
+	</body>
+</html>
