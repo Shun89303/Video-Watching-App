@@ -5,7 +5,14 @@ const bcrypt = require("bcrypt");
 
 const app = express();
 
-app.use(cors());
+app.use(
+	cors({
+		origin: ["http://localhost:5173"], // local frontend
+		methods: ["GET", "POST", "OPTIONS"],
+		credentials: true,
+	}),
+);
+app.options("*", cors()); // handle OPTIONS requests for all routes
 app.use(express.json());
 
 // Connect to MySQL
