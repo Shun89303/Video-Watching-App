@@ -10,10 +10,11 @@ app.use(express.json());
 
 // Connect to MySQL
 const db = mysql.createConnection({
-	host: "localhost",
-	user: "root",
-	password: "root1234",
-	database: "video_app",
+	host: process.env.MYSQLHOST || "localhost",
+	user: process.env.MYSQLUSER || "root",
+	password: process.env.MYSQLPASSWORD || "root1234",
+	database: process.env.MYSQLDATABASE || "video_app",
+	port: process.env.MYSQLPORT || 3306,
 });
 
 db.connect((err) => {
