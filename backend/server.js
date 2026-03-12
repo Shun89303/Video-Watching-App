@@ -69,7 +69,7 @@ app.post("/search-video", (req, res) => {
 		}
 
 		// Video found, return the local path
-		const videoPath = result[0].local_path;
+		const videoPath = result[0].url;
 		res.json({ success: true, url: videoPath });
 	});
 });
