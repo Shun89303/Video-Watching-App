@@ -91,11 +91,14 @@
 
 				try {
 					// Fetch video info from backend
-					const res = await fetch("http://localhost:3000/search-video", {
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ search: searchText }),
-					});
+					const res = await fetch(
+						"http://video-watching-app.onrender.com/search-video",
+						{
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({ search: searchText }),
+						},
+					);
 
 					const data = await res.json();
 					if (!data.success) {
@@ -128,14 +131,17 @@
 					markWatched.className = "mark-watched";
 					markWatched.textContent = "Mark as Watched";
 					markWatched.onclick = async () => {
-						const res = await fetch("http://localhost:3000/mark-watched", {
-							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({
-								phone: loggedInUserPhone,
-								metadata_key: searchText,
-							}),
-						});
+						const res = await fetch(
+							"http://video-watching-app.onrender.com/mark-watched",
+							{
+								method: "POST",
+								headers: { "Content-Type": "application/json" },
+								body: JSON.stringify({
+									phone: loggedInUserPhone,
+									metadata_key: searchText,
+								}),
+							},
+						);
 						const result = await res.json();
 						if (result.success) alert(`${capitalizedTitle} marked as watched!`);
 						else alert("Error marking as watched");
