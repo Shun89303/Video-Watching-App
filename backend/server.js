@@ -26,6 +26,16 @@ app.get("/", (req, res) => {
 	res.send("API running");
 });
 
+app.get("/test-db", (req, res) => {
+	db.query("SELECT 1", (err, result) => {
+		if (err) {
+			res.status(500).json({ error: err });
+			return;
+		}
+		res.json({ success: true, result });
+	});
+});
+
 // Login endpoint
 app.post("/login", (req, res) => {
 	const { phone, password } = req.body;
