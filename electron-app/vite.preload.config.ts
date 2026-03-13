@@ -5,7 +5,7 @@ export default defineConfig({
 	build: {
 		// Preload scripts are plain Node (Electron main context), not a browser
 		target: "esnext",
-		outDir: path.resolve(__dirname, ".vite/build"),
+		outDir: path.resolve(__dirname, "src"),
 		emptyOutDir: false,
 		lib: {
 			entry: resolve(__dirname, "src/preload.ts"),
