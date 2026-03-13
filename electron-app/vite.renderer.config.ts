@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 
 // folder containing your HTML pages
-const pagesDir = path.resolve(__dirname, "../src/renderer/pages");
+const pagesDir = path.resolve(__dirname, "src/renderer/pages");
 
 // automatically find all HTML files in pagesDir
 const htmlFiles = fs
@@ -24,7 +24,7 @@ export default defineConfig({
 	root: pagesDir, // so relative paths inside HTML still work
 	base: "./",
 	build: {
-		outDir: path.resolve(__dirname, "../.vite/build/renderer"),
+		outDir: path.resolve(__dirname, ".vite/build/renderer"),
 		emptyOutDir: true,
 		rollupOptions: {
 			input,
