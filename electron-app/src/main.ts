@@ -10,7 +10,9 @@ if (started) {
 
 const createWindow = () => {
 	// Create the browser window.
-	const preloadPath = path.join(__dirname, "preload.js");
+	const preloadPath = app.isPackaged
+		? path.join(process.resourcesPath, "preload.js") // packaged
+		: path.join(__dirname, "preload.js"); // dev
 
 	const mainWindow = new BrowserWindow({
 		width: 800,
