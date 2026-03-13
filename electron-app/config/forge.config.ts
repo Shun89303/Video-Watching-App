@@ -14,11 +14,10 @@ const config: ForgeConfig = {
 	},
 	rebuildConfig: {},
 	makers: [
-		new MakerSquirrel({ name: "video_watching_app" }),
-		new MakerZIP({}, ["win32"]),
-		new MakerZIP({}, ["darwin"]),
-		new MakerRpm({}),
-		new MakerDeb({}),
+		new MakerSquirrel({ name: "video_watching_app" }), // for win32
+		new MakerZIP({}), // optional portable zip
+		new MakerRpm({}), // linux rpm
+		new MakerDeb({}), // linux deb
 	],
 	plugins: [
 		new VitePlugin({
