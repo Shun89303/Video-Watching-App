@@ -12,7 +12,7 @@
 		"build:main": "vite build --config config/vite.main.config.ts",
 		"build:renderer": "vite build --config config/vite.renderer.config.ts",
 		"build:all": "npm run build:preload && npm run build:main && npm run build:renderer",
-		"make": "npm run build:all && electron-forge make",
+		"make": "npm run build:all && config/electron-forge make",
 		"publish": "electron-forge publish",
 		"lint": "eslint --ext .ts,.tsx .",
 		"build": "vite build --config config/vite.renderer.config.ts"
