@@ -13,7 +13,7 @@ export default defineConfig({
 				entryFileNames: "preload.js", // <-- force output file name
 				format: "cjs",
 			},
-			external: ["electron"], // don't bundle electron module
+			external: ["electron", "path", "url", "fs", "os", "process"], // don't bundle electron module
 		},
 	},
 });
