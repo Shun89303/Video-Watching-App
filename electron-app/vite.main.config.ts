@@ -4,7 +4,7 @@ import path from "node:path";
 export default defineConfig({
 	build: {
 		target: "node16",
-		outDir: path.resolve(__dirname, ".vite/build"),
+		outDir: path.resolve(__dirname, ".vite/build/main"),
 		emptyOutDir: false,
 		rollupOptions: {
 			input: path.resolve(__dirname, "src/main.ts"),

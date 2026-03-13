@@ -11,7 +11,7 @@ if (started) {
 const createWindow = () => {
 	// Create the browser window.
 	const preloadPath = app.isPackaged
-		? path.join(process.resourcesPath, "preload.js") // packaged
+		? path.join(__dirname, "..", "preload", "preload.js") // packaged
 		: path.join(__dirname, "preload.js"); // dev
 
 	const mainWindow = new BrowserWindow({
@@ -28,7 +28,7 @@ const createWindow = () => {
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
-		mainWindow.loadFile(path.join(__dirname, `renderer/index.html`));
+		mainWindow.loadFile(path.join(__dirname, "..", "renderer", `index.html`));
 	}
 
 	// Open the DevTools.
