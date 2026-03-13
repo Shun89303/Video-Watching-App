@@ -8,7 +8,7 @@ export default defineConfig({
 		emptyOutDir: false,
 		rollupOptions: {
 			input: path.resolve(__dirname, "src/main.ts"),
-			external: ["electron", "path", "url", "fs"], // Node built-ins + electron
+			external: ["electron", "path", "node:url", "fs"], // Node built-ins + electron
 			output: {
 				format: "cjs", // CommonJS for Node
 			},
