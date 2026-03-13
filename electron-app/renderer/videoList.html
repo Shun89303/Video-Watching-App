@@ -123,7 +123,8 @@
 					// Video player
 					const video = document.createElement("video");
 					video.controls = true;
-					video.src = data.url; // actual video path from backend
+					video.src = await window.electronAPI.getVideoPath(data.url);
+
 					container.appendChild(video);
 
 					// Mark as Watched button
