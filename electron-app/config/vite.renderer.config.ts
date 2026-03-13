@@ -9,8 +9,8 @@ export default defineConfig({
 		emptyOutDir: true, // clear old builds
 		rollupOptions: {
 			input: {
-				main: "index.html",
-				videoList: "videoList.html",
+				main: "./index.html",
+				videoList: "./videoList.html",
 			},
 			output: {
 				assetFileNames: "assets/[name][extname]", // put images/videos in assets folder
