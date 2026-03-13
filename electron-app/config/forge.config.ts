@@ -14,7 +14,12 @@ const config: ForgeConfig = {
 	},
 	rebuildConfig: {},
 	makers: [
-		new MakerSquirrel({ name: "video_watching_app" }), // for win32
+		new MakerSquirrel({
+			name: "video_watching_app",
+			authors: "Shun", // required sometimes for Squirrel
+			setupExe: "VideoWatchingAppSetup.exe",
+			noMsi: true,
+		}),
 		new MakerZIP({}), // optional portable zip
 		new MakerRpm({}), // linux rpm
 		new MakerDeb({}), // linux deb
