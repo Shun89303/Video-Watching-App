@@ -6,12 +6,12 @@ export default defineConfig({
 		target: "node16",
 		outDir: path.resolve(__dirname, ".vite/build"),
 		emptyOutDir: false,
-		lib: {
-			entry: path.resolve(__dirname, "src/main.ts"),
-			formats: ["cjs"],
-		},
 		rollupOptions: {
-			external: ["electron", "path", "url"], // Node built-ins
+			input: path.resolve(__dirname, "src/main.ts"),
+			external: ["electron", "path", "url", "fs"], // Node built-ins + electron
+			output: {
+				format: "cjs", // CommonJS for Node
+			},
 		},
 	},
 	resolve: {

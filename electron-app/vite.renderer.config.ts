@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
-import { resolve } from "path";
+import path, { resolve } from "path";
 
 export default defineConfig({
 	root: "renderer", // folder containing your renderer HTML/JS/CSS
 	base: "./", // ensures relative paths work in packaged app
 	build: {
-		outDir: "../.vite/build/renderer", // compiled renderer goes here
+		outDir: path.resolve(__dirname, ".vite/build/renderer"),
 		emptyOutDir: true, // clear old builds
 		rollupOptions: {
 			input: {
