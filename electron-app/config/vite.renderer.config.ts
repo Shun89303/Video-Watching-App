@@ -1,19 +1,35 @@
 import { defineConfig } from "vite";
 import path from "path";
+import fs from "fs";
+
+// folder containing your HTML pages
+const pagesDir = path.resolve(__dirname, "../src/renderer/pages");
+
+// automatically find all HTML files in pagesDir
+const htmlFiles = fs
+	.readdirSync(pagesDir)
+	.filter((file) => file.endsWith(".html"));
+
+// generate input object dynamically
+const input = htmlFiles.reduce(
+	(acc, file) => {
+		const name = file.replace(".html", "");
+		acc[name] = path.join(pagesDir, file); // cross-platform safe
+		return acc;
+	},
+	{} as Record<string, string>,
+);
 
 export default defineConfig({
-	root: "../src/renderer/pages", // folder containing your renderer HTML/JS/CSS
-	base: "./", // ensures relative paths work in packaged app
+	root: pagesDir, // so relative paths inside HTML still work
+	base: "./",
 	build: {
 		outDir: path.resolve(__dirname, "../.vite/build/renderer"),
-		emptyOutDir: true, // clear old builds
+		emptyOutDir: true,
 		rollupOptions: {
-			input: {
-				main: "./index.html",
-				videoList: "./videoList.html",
-			},
+			input,
 			output: {
-				assetFileNames: "assets/[name][extname]", // put images/videos in assets folder
+				assetFileNames: "assets/[name][extname]",
 			},
 		},
 	},
