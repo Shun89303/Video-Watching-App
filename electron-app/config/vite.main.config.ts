@@ -4,10 +4,10 @@ import path from "node:path";
 export default defineConfig({
 	build: {
 		target: "node16",
-		outDir: path.resolve(__dirname, ".vite/build/main"),
+		outDir: path.resolve(__dirname, "../.vite/build/main"),
 		emptyOutDir: false,
 		rollupOptions: {
-			input: path.resolve(__dirname, "src/main.ts"),
+			input: path.resolve(__dirname, "../src/main/main.ts"),
 			external: ["electron", "path", "node:url", "fs"], // Node built-ins + electron
 			output: {
 				format: "cjs", // CommonJS for Node
@@ -16,7 +16,7 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			"@": path.resolve(__dirname, "src"),
+			"@": path.resolve(__dirname, "../src"),
 		},
 	},
 });

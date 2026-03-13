@@ -26,4 +26,4 @@
  * ```
  */
 
-import "./index.css";
+import "./styles/index.css";

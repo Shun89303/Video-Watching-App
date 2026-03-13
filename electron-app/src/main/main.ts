@@ -26,7 +26,9 @@ const createWindow = () => {
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
-		mainWindow.loadFile(path.join(__dirname, "..", "renderer", `index.html`));
+		mainWindow.loadFile(
+			path.join(__dirname, "..", "renderer", "pages", `index.html`),
+		);
 	}
 
 	// Open the DevTools.
@@ -41,10 +43,10 @@ ipcMain.handle("get-video-path", (event, relativePath: string) => {
 
 	if (app.isPackaged) {
 		// packaged desktop app
-		videoPath = path.join(process.resourcesPath, "assets", fileName);
+		videoPath = path.join(process.resourcesPath, "assets", "videos", fileName);
 	} else {
 		// development mode
-		videoPath = path.join(app.getAppPath(), "assets", fileName);
+		videoPath = path.join(app.getAppPath(), "assets", "videos", fileName);
 		// console.log(videoPath);
 		// /Users/shun/myStuff/IT practice/Video-Watching-App/electron-app/assets/sintel_trailer-480p.mp4
 	}

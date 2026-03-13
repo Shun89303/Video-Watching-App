@@ -1,14 +1,14 @@
 import { defineConfig } from "vite";
-import path, { resolve } from "path";
+import path from "path";
 
 export default defineConfig({
 	build: {
 		// Preload scripts are plain Node (Electron main context), not a browser
 		target: "node16",
-		outDir: resolve(__dirname, ".vite/build/preload"),
+		outDir: path.resolve(__dirname, "../.vite/build/preload"),
 		emptyOutDir: false,
 		lib: {
-			entry: path.resolve(__dirname, "src/preload.ts"),
+			entry: path.resolve(__dirname, "../src/preload/preload.ts"),
 			formats: ["cjs"], // preload must be CommonJS
 		},
 		rollupOptions: {
