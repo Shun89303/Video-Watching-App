@@ -10,7 +10,7 @@ import { FuseV1Options, FuseVersion } from "@electron/fuses";
 const config: ForgeConfig = {
 	packagerConfig: {
 		asar: true,
-		extraResource: [".vite/build/preload.js", "assets"],
+		extraResource: ["src/preload.js", "assets"],
 	},
 	rebuildConfig: {},
 	makers: [
