@@ -3,12 +3,12 @@ import path from "node:path";
 
 export default defineConfig({
 	build: {
-		target: "node14",
+		target: "node16",
 		outDir: path.resolve(__dirname, ".vite/build"),
 		emptyOutDir: false,
 		rollupOptions: {
 			input: path.resolve(__dirname, "src/main.ts"), // entry point for main process
-			external: ["electron", "url", "path"], // Node built-ins
+			external: ["electron", "path", "url"], // Node built-ins
 			output: {
 				format: "cjs",
 			},
