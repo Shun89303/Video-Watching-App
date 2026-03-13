@@ -7,11 +7,12 @@ export default defineConfig({
 		target: "esnext",
 		outDir: resolve(__dirname, ".vite/build"),
 		emptyOutDir: false,
-		lib: {
-			entry: resolve(__dirname, "src/preload.ts"),
-			formats: ["cjs"], // preload must be commonjs
-		},
 		rollupOptions: {
+			input: resolve(__dirname, "src/preload.ts"),
+			output: {
+				entryFileNames: "preload.js", // <-- force output file name
+				format: "cjs",
+			},
 			external: ["electron"], // don't bundle electron module
 		},
 	},
