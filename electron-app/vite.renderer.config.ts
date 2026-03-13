@@ -5,7 +5,7 @@ export default defineConfig({
 	root: "renderer", // folder containing your renderer HTML/JS/CSS
 	base: "./", // ensures relative paths work in packaged app
 	build: {
-		outDir: ".vite/build/renderer", // compiled renderer goes here
+		outDir: "../.vite/build/renderer", // compiled renderer goes here
 		emptyOutDir: true, // clear old builds
 		rollupOptions: {
 			input: {
