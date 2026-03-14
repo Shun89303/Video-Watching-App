@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from "electron";
+import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
 import { pathToFileURL } from "node:url";
@@ -22,15 +22,16 @@ const createWindow = () => {
 		},
 	});
 
+	if (process.env.NODE_ENV !== "production") {
+		mainWindow.webContents.openDevTools();
+	}
+
 	// and load the index.html of the app.
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
 		mainWindow.loadFile(path.join(__dirname, "..", "renderer", `index.html`));
 	}
-
-	// Open the DevTools.
-	mainWindow.webContents.openDevTools();
 };
 
 ipcMain.handle("get-video-path", (event, relativePath: string) => {
@@ -52,10 +53,32 @@ ipcMain.handle("get-video-path", (event, relativePath: string) => {
 	return pathToFileURL(videoPath).href;
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.whenReady().then(async () => {
+	try {
+		const { startDatabase } = await import("../../../backend/src/config/db.js");
+		await startDatabase();
+		createWindow();
+	} catch (err) {
+		// Log to both console and Pino (if available)
+		console.error("Database connection failed:", err);
+
+		try {
+			const { logger } = await import("../../../backend/src/config/db.js");
+			logger.error({ err }, "Database connection failed");
+		} catch (loggerErr) {
+			console.error("Failed to log to Pino:", loggerErr);
+		}
+
+		// Show a dialog to the user
+		dialog.showErrorBox(
+			"Database Connection Failed",
+			"The application cannot connect to the database.\nPlease try again later.",
+		);
+
+		// Give Node a moment to flush logs before quitting
+		setTimeout(() => app.quit(), 100);
+	}
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
