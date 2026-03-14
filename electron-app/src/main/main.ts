@@ -59,10 +59,6 @@ async function checkBackendHealth() {
 		// "http://localhost:3000/api/health/checkDB",
 	);
 
-	if (!res.ok) {
-		throw new Error(`HTTP error! status: ${res.status}`);
-	}
-
 	const data = await res.json();
 
 	if (data.status !== "ok") {
