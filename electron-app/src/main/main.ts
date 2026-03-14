@@ -54,7 +54,10 @@ ipcMain.handle("get-video-path", (event, relativePath: string) => {
 });
 
 async function checkBackendHealth() {
-	const res = await fetch("https://video-watching-app.onrender.com/api/health");
+	const res = await fetch(
+		"https://video-watching-app.onrender.com/api/health/checkDB",
+		// "http://localhost:3000/api/health/checkDB",
+	);
 
 	if (!res.ok) {
 		throw new Error(`HTTP error! status: ${res.status}`);

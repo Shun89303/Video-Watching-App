@@ -93,6 +93,7 @@
 					// Fetch video info from backend
 					const res = await fetch(
 						"https://video-watching-app.onrender.com/api/video/search-video",
+						// "http://localhost:3000/api/video/search-video",
 						{
 							method: "POST",
 							headers: { "Content-Type": "application/json" },
@@ -134,6 +135,7 @@
 					markWatched.onclick = async () => {
 						const res = await fetch(
 							"https://video-watching-app.onrender.com/api/video/mark-watched",
+							// "http://localhost:3000/api/video/mark-watched",
 							{
 								method: "POST",
 								headers: { "Content-Type": "application/json" },

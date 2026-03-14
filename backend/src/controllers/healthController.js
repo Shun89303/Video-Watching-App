@@ -1,4 +1,4 @@
-const { db } = require("../config/db");
+const db = require("../config/db");
 
 exports.checkDB = async (req, res) => {
 	db.ping((err) => {
