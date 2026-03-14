@@ -1,5 +1,4 @@
 // backend/db.js
-require("dotenv").config({ path: "../.env" });
 const mysql = require("mysql2");
 
 // MySQL connection
