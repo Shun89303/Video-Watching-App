@@ -4,6 +4,7 @@ const db = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const videoRoutes = require("./routes/videoRoutes");
+const healthRoutes = require("./routes/healthRoutes");
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.get("/test-db", (req, res) => {
 	});
 });
 
+app.use("/api", healthRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/video", videoRoutes);
 

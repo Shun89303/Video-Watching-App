@@ -1,3 +1,4 @@
+import axios from "axios";
 import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
@@ -53,29 +54,25 @@ ipcMain.handle("get-video-path", (event, relativePath: string) => {
 	return pathToFileURL(videoPath).href;
 });
 
+async function checkBackendHealth() {
+	const res = await axios.get(
+		"https://video-watching-app.onrender.com/api/health",
+	);
+	if (res.data.status !== "ok") {
+		throw new Error(res.data.message);
+	}
+}
+
 app.whenReady().then(async () => {
 	try {
-		const { startDatabase } = await import("../../../backend/src/config/db.js");
-		await startDatabase();
+		await checkBackendHealth();
 		createWindow();
 	} catch (err) {
-		// Log to both console and Pino (if available)
-		console.error("Database connection failed:", err);
-
-		try {
-			const { logger } = await import("../../../backend/src/config/db.js");
-			logger.error({ err }, "Database connection failed");
-		} catch (loggerErr) {
-			console.error("Failed to log to Pino:", loggerErr);
-		}
-
-		// Show a dialog to the user
 		dialog.showErrorBox(
 			"Database Connection Failed",
 			"The application cannot connect to the database.\nPlease try again later.",
 		);
 
-		// Give Node a moment to flush logs before quitting
 		setTimeout(() => app.quit(), 100);
 	}
 });
