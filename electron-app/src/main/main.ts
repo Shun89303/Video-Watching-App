@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain } from "electron";
+import { app, BrowserWindow, dialog, ipcMain, Menu } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
 import { pathToFileURL } from "node:url";
@@ -22,8 +22,11 @@ const createWindow = () => {
 		},
 	});
 
-	if (process.env.NODE_ENV !== "production") {
+	if (!app.isPackaged) {
 		mainWindow.webContents.openDevTools();
+	} else {
+		mainWindow.webContents.closeDevTools();
+		Menu.setApplicationMenu(null);
 	}
 
 	// and load the index.html of the app.
