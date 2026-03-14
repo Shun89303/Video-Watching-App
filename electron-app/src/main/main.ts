@@ -1,4 +1,3 @@
-import axios from "axios";
 import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
