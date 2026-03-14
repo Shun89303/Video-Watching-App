@@ -18,8 +18,8 @@ app.get("/", (req, res) => {
 app.get("/test-db", (req, res) => {
 	db.query("SELECT 1", (err, result) => {
 		if (err) {
-			res.status(500).json({ error: err });
-			return;
+			console.error("DB ERROR:", err);
+			return res.status(500).json({ error: err.message });
 		}
 		res.json({ success: true, result });
 	});
