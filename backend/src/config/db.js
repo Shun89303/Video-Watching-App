@@ -14,3 +14,5 @@ db.connect((err) => {
 });
 
 module.exports = db;
+
+// Development + Production working version + scalable, BUT no cleaning yet
