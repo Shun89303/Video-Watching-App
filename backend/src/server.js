@@ -1,7 +1,6 @@
 const app = require("./app");
 
-const PORT = process.env.MYSQLPORT || 3000;
-// const PORT = 3000;
+const PORT = process.env.MYSQLPORT || 40898;
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
