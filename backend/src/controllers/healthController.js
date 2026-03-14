@@ -11,5 +11,3 @@ exports.checkDB = async (req, res) => {
 		}
 	});
 };
-
-module.exports = { checkDB };
