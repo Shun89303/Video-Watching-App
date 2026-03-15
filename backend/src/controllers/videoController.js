@@ -15,7 +15,7 @@ exports.searchVideo = (req, res) => {
 
 		res.json({
 			success: true,
-			url: result[0].local_path,
+			url: result[0].file_name,
 		});
 	});
 };
