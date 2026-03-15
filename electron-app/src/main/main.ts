@@ -87,3 +87,5 @@ app.on("activate", () => {
 		createWindow();
 	}
 });
+
+// All codes working / videos db column name changed
