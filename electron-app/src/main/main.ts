@@ -17,8 +17,10 @@ const createWindow = () => {
 			preload: preloadPath,
 			contextIsolation: true,
 			nodeIntegration: false,
-			webSecurity: true,
-			allowRunningInsecureContent: false,
+			// webSecurity: true,
+			// allowRunningInsecureContent: false,
+			webSecurity: false,
+			allowRunningInsecureContent: true,
 		},
 	});
 
@@ -36,9 +38,7 @@ const createWindow = () => {
 	}
 };
 
-ipcMain.handle("get-video-path", (event, relativePath: string) => {
-	const fileName = path.basename(relativePath);
-
+ipcMain.handle("get-video-path", (event, fileName: string) => {
 	let videoPath: string;
 
 	if (app.isPackaged) {

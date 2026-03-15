@@ -4,6 +4,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
-	getVideoPath: (relativePath: string) =>
-		ipcRenderer.invoke("get-video-path", relativePath),
+	getVideoPath: (fileName: string) =>
+		ipcRenderer.invoke("get-video-path", fileName),
 });

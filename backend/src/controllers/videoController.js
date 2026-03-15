@@ -3,7 +3,7 @@ const db = require("../config/db");
 exports.searchVideo = (req, res) => {
 	const { search } = req.body;
 
-	const query = "SELECT local_path FROM videos WHERE metadata_key = ?";
+	const query = "SELECT file_name FROM videos WHERE metadata_key = ?";
 
 	db.query(query, [search.toLowerCase()], (err, result) => {
 		if (err)
