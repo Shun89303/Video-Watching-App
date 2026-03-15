@@ -17,10 +17,8 @@ const createWindow = () => {
 			preload: preloadPath,
 			contextIsolation: true,
 			nodeIntegration: false,
-			// webSecurity: true,
-			// allowRunningInsecureContent: false,
-			webSecurity: false,
-			allowRunningInsecureContent: true,
+			webSecurity: true,
+			allowRunningInsecureContent: false,
 		},
 	});
 

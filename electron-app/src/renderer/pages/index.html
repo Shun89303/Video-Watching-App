@@ -1,133 +1,21 @@
 <!doctype html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<title>Login</title>
-
-		<style>
-			* {
-				box-sizing: border-box;
-			}
-
-			body {
-				font-family:
-					-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial,
-					sans-serif;
-				background-color: linear-gradient(135deg, #e9eff5, #f7f9fb);
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-				margin: 0;
-			}
-
-			.login-container {
-				background-color: white;
-				padding: 36px;
-				border-radius: 12px;
-				width: 320px;
-				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-				border: 1px solid rgba(0, 0, 0, 0.05);
-			}
-
-			h2 {
-				text-align: center;
-				margin-bottom: 26px;
-				font-weight: 600;
-				color: #222;
-				letter-spacing: 0.3px;
-			}
-
-			input {
-				width: 100%;
-				padding: 12px;
-				margin-bottom: 14px;
-				border: 1px solid #dcdcdc;
-				border-radius: 6px;
-				font-size: 14px;
-				transition:
-					border 0.2s,
-					box-shadow 0.2s;
-			}
-
-			input:focus {
-				outline: none;
-				border-color: #0078d7;
-				box-shadow: 0 0 0 2px rgba(0, 120, 215, 0.15);
-			}
-
-			button {
-				width: 100%;
-				padding: 12px;
-				border: 2px solid #0078d7; /* initial border color */
-				background-color: transparent; /* no fill at start */
-				color: #0078d7; /* text same as border */
-				font-size: 15px;
-				font-weight: 600;
-				border-radius: 6px;
-				cursor: pointer;
-				transition:
-					background-color 0.1s ease,
-					color 0.1s ease;
-			}
-
-			button:hover {
-				background-color: #0078d7; /* fill on hover */
-				color: white; /* change text to contrast */
-			}
-
-			button:active {
-				background-color: #003366; /* darker background on click */
-				color: white; /* keep text readable */
-			}
-
-			.error {
-				color: #e54848;
-				font-size: 13px;
-				text-align: center;
-				margin-top: 12px;
-			}
-		</style>
+		<link rel="stylesheet" href="./styles/index.css" />
 	</head>
-
 	<body>
 		<div class="login-container">
 			<h2>Login</h2>
-
 			<form id="loginForm">
 				<input type="tel" id="phone" placeholder="Phone Number" required />
 				<input type="password" id="password" placeholder="Password" required />
 				<button type="submit">Login</button>
 			</form>
-
 			<div id="error" class="error"></div>
 		</div>
 
-		<script>
-			const form = document.getElementById("loginForm");
-
-			form.addEventListener("submit", async (e) => {
-				e.preventDefault();
-				const phone = document.getElementById("phone").value;
-				const password = document.getElementById("password").value;
-
-				const res = await fetch(
-					"https://video-watching-app.onrender.com/api/auth/login",
-					{
-						method: "POST",
-						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ phone, password }),
-					},
-				);
-
-				const data = await res.json();
-				if (data.success) {
-					localStorage.setItem("loggedInUserPhone", phone);
-					window.location.href = "videoList.html";
-				} else {
-					document.getElementById("error").textContent = "Invalid login";
-				}
-			});
-		</script>
+		<script type="module" src="./renderer.ts"></script>
 	</body>
 </html>

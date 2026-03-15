@@ -16,21 +16,18 @@ const config: ForgeConfig = {
 	makers: [
 		new MakerSquirrel({
 			name: "video_watching_app",
-			authors: "Shun", // required sometimes for Squirrel
+			authors: "Sai Sai",
 			setupExe: "VideoWatchingAppSetup.exe",
 			noMsi: true,
 		}),
-		new MakerZIP({}), // optional portable zip
-		new MakerRpm({}), // linux rpm
-		new MakerDeb({}), // linux deb
+		new MakerZIP({}),
+		new MakerRpm({}),
+		new MakerDeb({}),
 	],
 	plugins: [
 		new VitePlugin({
-			// `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
-			// If you are familiar with Vite configuration, it will look really familiar.
 			build: [
 				{
-					// `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
 					entry: "src/main/main.ts",
 					config: "vite.main.config.ts",
 					target: "main",
@@ -48,8 +45,6 @@ const config: ForgeConfig = {
 				},
 			],
 		}),
-		// Fuses are used to enable/disable various Electron functionality
-		// at package time, before code signing the application
 		new FusesPlugin({
 			version: FuseVersion.V1,
 			[FuseV1Options.RunAsNode]: false,
